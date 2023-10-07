@@ -31,6 +31,12 @@ func main() {
 		MaxAge:           300,
 	}))
 
+	v1Router := chi.NewRouter()
+	v1Router.Get("/healthz", handlerReadinees)
+	v1Router.Get("/err", handlerErr)
+
+	router.Mount("/v1", v1Router)
+
 	// Configuramos el servidor
 	srv := &http.Server{
 		Handler: router,
